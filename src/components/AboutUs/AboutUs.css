@@ -1,0 +1,8 @@
+p{
+    font-size: calc(12px + (15 - 12) * (100vw - 350px) / (1200 - 350));
+    line-height: calc(18px + (24 - 18) * (100vw - 350px) / (1200 - 350));
+}
+hr{
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
