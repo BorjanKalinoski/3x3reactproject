@@ -72,13 +72,13 @@ class App extends Component {
                   <Header resize={this.resize}/>
                   <div style={filler} className={"bg-mid-gray"}></div>
                   <HomeBanner/>
-                  <News resize={this.resize}  isAdmin={this.state.isAdmin}/>
+                  {/*<News resize={this.resize}  isAdmin={this.state.isAdmin}/>*/}
                   <Ads resize={this.resize} isAdmin={this.state.isAdmin}/>
-                  <Live isAdmin={this.state.isAdmin}/>
-                  <AboutUs isAdmin={this.state.isAdmin}/>
-                  <Event isAdmin={this.state.isAdmin}/>
+                  {/*<Live isAdmin={this.state.isAdmin}/>*/}
+                  {/*<AboutUs isAdmin={this.state.isAdmin}/>*/}
+                  {/*<Event isAdmin={this.state.isAdmin}/>*/}
                   <SocialMedia isAdmin={this.state.isAdmin}/>
-                  <Footer isAdmin={this.state.isAdmin}/>
+                  {/*<Footer isAdmin={this.state.isAdmin}/>*/}
               </div>
           );
       }else{
@@ -87,13 +87,13 @@ class App extends Component {
                   <Header isAdmin={this.state.isAdmin} resize={this.resize}/>
                   <div style={filler} className={"bg-mid-gray"}></div>
                   <HomeBanner/>
-                  <News isAdmin={this.state.isAdmin} resize={this.resize}/>
-                  <Live isAdmin={this.state.isAdmin}/>
-                  <AboutUs isAdmin={this.state.isAdmin}/>
-                  <Event isAdmin={this.state.isAdmin}/>
+                  {/*<News isAdmin={this.state.isAdmin} resize={this.resize}/>*/}
+                  {/*<Live isAdmin={this.state.isAdmin}/>*/}
+                  {/*<AboutUs isAdmin={this.state.isAdmin}/>*/}
+                  {/*<Event isAdmin={this.state.isAdmin}/>*/}
                   <Ads isAdmin={this.state.isAdmin} resize={this.resize}/>
                   <SocialMedia isAdmin={this.state.isAdmin} />
-                  <Footer isAdmin={this.state.isAdmin}/>
+                  {/*<Footer isAdmin={this.state.isAdmin}/>*/}
               </div>
           );
       }

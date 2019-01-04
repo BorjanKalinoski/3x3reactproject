@@ -7,7 +7,7 @@ class Ads extends Component {
             ads:[]
         };
 
-        fetch('http://localhost:3001/ads',{
+        fetch('https://evening-temple-81474.herokuapp.com/ads',{
             method:'GET',
             headers:{
                 'Content-Type':'application/json',
@@ -36,10 +36,12 @@ class Ads extends Component {
 
     render() {
         // console.log(this.state.ads);
-        let ads = this.state.ads.map((ad,index) => {
-                return <AdImage key={ad.id} id={ad.id} imgname={ad.image} url={ad.url}/>;
-            }
-        );
+        // let ads = this.state.ads.map((ad,index) => {
+        //     console.log('adov',ad);
+        //         return <AdImage key={ad.id} id={ad.id} imgname={ad.image} url={ad.url}/>;
+        //     }
+        // );
+        let ads=null;
         var stajl={};
         var containerClass;
         if(document.body.clientWidth>786){
@@ -117,7 +119,7 @@ class Ads extends Component {
         data.append('adimage',adimage);
         data.append('adurl',adurl);
 
-        fetch('http://localhost:3001/uploadad',{
+        fetch('https://evening-temple-81474.herokuapp.com/uploadad',{
             method:'POST',
             body:data,
         }).then((response)=>{
@@ -126,8 +128,10 @@ class Ads extends Component {
                 ads=[...ads,ad.file];
                 this.setState({ads:ads});
             })
-                .catch(err=>console.log('failed to upload image'));
-        }).catch(err=>console.log('error uploading image'));
+                .catch(err=>console.log('failed to upload image',err));
+        }).catch(err=>{
+            console.log('error uploading image',err);
+        });
     };
 }
 function getFileExtension(filename) {

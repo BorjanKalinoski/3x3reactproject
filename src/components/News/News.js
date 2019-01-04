@@ -8,7 +8,7 @@ class News extends Component {
         this.state={
             postdata:[]
         };
-        fetch('http://localhost:3001/getposts',{
+        fetch('https://evening-temple-81474.herokuapp.com/getposts',{
             method:'GET',
             headers:{'Content-Type':'application/json'}
         })

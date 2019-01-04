@@ -9,7 +9,7 @@ export default class Footer extends Component {
             sponsors:[]
             // img:[require('../../../public/images/sponsors/sponsor61.png'),require('../../../public/images/sponsors/sponsor73.png'),require('../../../public/images/sponsors/sponsor75.png'),require('../../../public/images/sponsors/sponsor76.png')]
         };
-        fetch('http://localhost:3001/sponsors', {
+        fetch('https://evening-temple-81474.herokuapp.com/sponsors', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

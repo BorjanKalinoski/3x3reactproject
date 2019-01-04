@@ -6,8 +6,7 @@ class AdImage extends Component {
             src:'',
             url:'',
         };
-        // console.log('EEEEEEEEEEEEEEEE',this.props);
-        fetch('http://localhost:3001/ad/'+this.props.id,{
+        fetch('https://evening-temple-81474.herokuapp.com/ad/'+this.props.id,{
             method:'GET',
             headers:{
                 'Content-Type':'application/json',
@@ -20,18 +19,17 @@ class AdImage extends Component {
             }).catch(err=>console.log(err));
     }
     componentDidMount() {
-        // fetch('http://localhost:3001/ad/')
     }
-    onImageClikc=()=> {
+    omImageClick=()=> {
         if (this.props.url !== null) {
             window.location.href = this.props.url;
         }
-    }
+    };
     render() {
         var src = window.location.origin + '/images/reklami/'+this.props.imgname;
         return (
             <li className={"list pl0"}>
-                <img src={src} onClick={this.onImageClick} alt={"a"} className={"mw-100 w-100 pointer"}/>
+                <img src={src} onClick={this.omImageClick} alt={"a"} className={"mw-100 w-100 pointer"}/>
             </li>
         );
     }
