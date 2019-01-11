@@ -2,37 +2,46 @@ import React, {Component} from 'react';
 class AdImage extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            src:'',
-            url:'',
+        this.state = {
+            load: true
         };
-        fetch('https://evening-temple-81474.herokuapp.com/ad/'+this.props.id,{
-            method:'GET',
-            headers:{
-                'Content-Type':'application/json',
+    }
+
+    onDeleteImage = () => {
+        fetch(`https://api3x3macedonia.herokuapp.com/ad/${this.props.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
-            }
-        })
-            .then(response=>{
-                response.json().then(img => {
-                }).catch(err=>console.log(err));
-            }).catch(err=>console.log(err));
-    }
-    componentDidMount() {
-    }
-    omImageClick=()=> {
-        if (this.props.url !== null) {
-            window.location.href = this.props.url;
-        }
+            },
+        }).then(response => response.json())
+            .then(data => {
+                this.setState({load: false});
+            }).catch(err => console.log('err is', err));
     };
     render() {
-        var src = window.location.origin + '/images/reklami/'+this.props.imgname;
+        if (this.state.load === false) {
+            return null;
+        }
         return (
-            <li className={"list pl0"}>
-                <img src={src} onClick={this.omImageClick} alt={"a"} className={"mw-100 w-100 pointer"}/>
+            <li className={"list pl0 relative"}>
+                {this.props.isAdmin===true
+                    ?<i onClick={this.onDeleteImage} className="fas fa-trash-alt pointer f4 absolute top-0 right-0 dark-red mt2 mr2 grow-large"/>
+                    :null
+                }
+                    <a href={this.props.url}>
+                    <img
+                        className={"pointer of-contain"}
+                        src={"https://api3x3macedonia.herokuapp.com/ad/" + this.props.id}
+                        alt={this.props.id}
+                        onClick={this.onImageClick}
+                        onError={(e) => {
+                            this.setState({load: false});
+                        }}
+                    />
+                </a>
             </li>
         );
     }
-
 }
 export default AdImage;

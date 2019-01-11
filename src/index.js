@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'tachyons/css/tachyons.css';
 import 'tachyons-word-break/css/tachyons-word-break.min.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

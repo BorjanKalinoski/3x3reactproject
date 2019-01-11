@@ -4,10 +4,10 @@ class Ads extends Component {
     constructor(props){
         super(props);
         this.state={
-            ads:[]
+            ads:[],
         };
 
-        fetch('https://evening-temple-81474.herokuapp.com/ads',{
+        fetch('https://api3x3macedonia.herokuapp.com/ads',{
             method:'GET',
             headers:{
                 'Content-Type':'application/json',
@@ -16,6 +16,7 @@ class Ads extends Component {
         }).then(response=> response.json())
             .then(data=>{
                     let ads=[];
+                    console.log(data);
                     data.map(ad=>{
                        return ads.push(ad);
                     });
@@ -35,13 +36,11 @@ class Ads extends Component {
     }
 
     render() {
-        // console.log(this.state.ads);
-        // let ads = this.state.ads.map((ad,index) => {
-        //     console.log('adov',ad);
-        //         return <AdImage key={ad.id} id={ad.id} imgname={ad.image} url={ad.url}/>;
-        //     }
-        // );
-        let ads=null;
+        console.log(this.state.ads);
+        let ads = this.state.ads.map((ad,index) => {
+                return <AdImage key={index} id={ad.id} imgname={ad.file} url={ad.url} isAdmin={this.props.isAdmin}/>;
+            }
+        );
         var stajl={};
         var containerClass;
         if(document.body.clientWidth>786){
@@ -119,13 +118,17 @@ class Ads extends Component {
         data.append('adimage',adimage);
         data.append('adurl',adurl);
 
-        fetch('https://evening-temple-81474.herokuapp.com/uploadad',{
+        fetch('https://api3x3macedonia.herokuapp.com/uploadad',{
             method:'POST',
             body:data,
         }).then((response)=>{
             response.json().then(ad=>{
                 let ads=this.state.ads;
-                ads=[...ads,ad.file];
+                ads=[...ads,{
+                    image:ad.image,
+                    url:ad.url,
+                    id:ad.id
+                }];
                 this.setState({ads:ads});
             })
                 .catch(err=>console.log('failed to upload image',err));
@@ -136,6 +139,6 @@ class Ads extends Component {
 }
 function getFileExtension(filename) {
     let ext= filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2).toLowerCase();
-    return !(ext !== 'png' && ext !== 'jpeg' && ext !== 'jpg' && ext !== 'jpeg' && ext !== 'tif' && ext !== 'gif');
+    return !(ext !== 'png' && ext !== 'jpeg' && ext !== 'jpg' && ext !== 'jpeg' && ext !== 'gif' && ext!=='webp');
 }
 export default Ads;

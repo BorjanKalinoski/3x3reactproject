@@ -78,7 +78,7 @@ class App extends Component {
                   {/*<AboutUs isAdmin={this.state.isAdmin}/>*/}
                   {/*<Event isAdmin={this.state.isAdmin}/>*/}
                   <SocialMedia isAdmin={this.state.isAdmin}/>
-                  {/*<Footer isAdmin={this.state.isAdmin}/>*/}
+                  <Footer isAdmin={this.state.isAdmin}/>
               </div>
           );
       }else{
