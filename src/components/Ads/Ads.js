@@ -5,6 +5,7 @@ class Ads extends Component {
         super(props);
         this.state={
             ads:[],
+            loading:false,
         };
 
         fetch('https://api3x3macedonia.herokuapp.com/ads',{
@@ -50,45 +51,51 @@ class Ads extends Component {
         else{
             containerClass="fl w-95 mw-95 ml3 bg-near-white shadow-2 mt3 pa1 br2";
         }
-            return (
-                <div className={containerClass} style={stajl} >
-                    {this.props.isAdmin===true?
-                     <div className={"bw1 ba br2 pa1 w-100 center mv2"}>
-                      <form className={"measure center w-100 mw-100"} action="">
-                         <fieldset className="ba b--transparent ph0 mh0">
-                             <legend className={"f4 fw6 ph0 mh0 tc"}>Submit Ad</legend>
-                             <div className={"mt2"}>
-                                 <label htmlFor="adimage" className="db fw6 lh-copy f6">Ad Image</label>
-                                 <input
-                                     name={"adimage"}
-                                     onChange={this.onAdImageChange}
-                                     className={"pv1 ba bg-transparent hover-bg-black hover-white mw-100 w-100"}
-                                     type="file"
-                                 />
-                             </div>
-                             <div className={"mt2"}>
-                                 <label htmlFor="adurl" className="db fw6 lh-copy f6">Ad URL</label>
-                                 <input
-                                     name={"adurl"}
-                                     onChange={this.onAdurlChange}
-                                     className={"pv1 ba bg-transparent hover-bg-black hover-white mw-100 w-100"}
-                                     type="text"
-                                 />
-                             </div>
-                             <div className={"mt2"}>
-                                 <input
-                                     onClick={this.onAdFormDataSubmit}
-                                     className={"b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"}
-                                     type="submit"
-                                 />
-                             </div>
-                         </fieldset>
-                      </form>
-                     </div>:null}
-                     <ul className={"pa0 ma0"}>
-                        {ads}
-                     </ul>
-                </div>);
+        return (
+            <div className={containerClass} style={stajl}>
+                {this.props.isAdmin === true ?
+                    <div className={"bw1 ba br2 pa1 w-100 center mv2"}>
+                        <form className={"measure center w-100 mw-100"} action="">
+                            <fieldset className="ba b--transparent ph0 mh0">
+                                <legend className={"f4 fw6 ph0 mh0 tc"}>Submit Ad</legend>
+                                <div className={"mt2"}>
+                                    <label htmlFor="adimage" className="db fw6 lh-copy f6">Ad Image</label>
+                                    <input
+                                        name={"adimage"}
+                                        onChange={this.onAdImageChange}
+                                        className={"pv1 ba bg-transparent hover-bg-black hover-white mw-100 w-100"}
+                                        type="file"
+                                    />
+                                </div>
+                                <div className={"mt2"}>
+                                    <label htmlFor="adurl" className="db fw6 lh-copy f6">Ad URL</label>
+                                    <input
+                                        name={"adurl"}
+                                        onChange={this.onAdurlChange}
+                                        className={"pv1 ba bg-transparent hover-bg-black hover-white mw-100 w-100"}
+                                        type="text"
+                                    />
+                                </div>
+                                <div className={"mt2"}>
+                                    <input
+                                        onClick={this.onAdFormDataSubmit}
+                                        className={"b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"}
+                                        type="submit"
+                                    />
+                                </div>
+                                {this.state.loading === false
+                                    ? null :
+                                    <div className={"mt2 w-100 tc"}>
+                                        <span className={"w-100"}>Loading...</span>
+                                        <i className="fas fa-spinner fa-spin f3 mt2 w-100 tc"/>
+                                    </div>}
+                            </fieldset>
+                        </form>
+                    </div> : null}
+                <ul className={"pa0 ma0"}>
+                    {ads}
+                </ul>
+            </div>);
     }
 
     onAdImageChange=(event)=>{
@@ -100,6 +107,7 @@ class Ads extends Component {
     };
     onAdFormDataSubmit = (event) => {
         event.preventDefault();
+        this.setState({loading: true});
         const {adimage, adurl} = this.state;
 
         if(!adimage.name) {
@@ -117,7 +125,8 @@ class Ads extends Component {
         const data=new FormData();
         data.append('adimage',adimage);
         data.append('adurl',adurl);
-
+        console.time('upload');
+        console.log('start');
         fetch('https://api3x3macedonia.herokuapp.com/uploadad',{
             method:'POST',
             body:data,
@@ -130,6 +139,8 @@ class Ads extends Component {
                     id:ad.id
                 }];
                 this.setState({ads:ads});
+                this.setState({loading: false});
+                console.timeEnd('upload');
             })
                 .catch(err=>console.log('failed to upload image',err));
         }).catch(err=>{

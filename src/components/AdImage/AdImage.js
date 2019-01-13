@@ -35,7 +35,7 @@ class AdImage extends Component {
                         src={"https://api3x3macedonia.herokuapp.com/ad/" + this.props.id}
                         alt={this.props.id}
                         onClick={this.onImageClick}
-                        onError={(e) => {
+                        onError={() => {
                             this.setState({load: false});
                         }}
                     />
